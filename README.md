@@ -16,5 +16,5 @@ $ python menu.py
         5. Remove a note
         6. Save notes localy
         7. Load local saved notes
-        6. Quit
+        8. Quit
 ```
