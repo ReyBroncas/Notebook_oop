@@ -7,6 +7,9 @@ import glob
 
 class Menu:
     def __init__(self):
+        """
+        An initiaton of class attributes.
+        """
         self.notebook = Notebook()
         self.choices = {
             '1': self.show_notes,
@@ -20,6 +23,9 @@ class Menu:
         }
 
     def display_menu(self):
+        """
+        Displays the menu.
+        """
         print("""
         Notebook menu:
         1. Show notes
@@ -33,6 +39,9 @@ class Menu:
         """)
 
     def run(self):
+        """
+        Runs a program.
+        """
         while True:
             self.display_menu()
             choice = input('Enter an option: ')
@@ -43,23 +52,35 @@ class Menu:
                 print(f'{choice} is not valid.')
 
     def show_notes(self, notes=None):
+        """
+        (list) -> None
+        Shows all created notes.
+        """
         if not notes:
             notes = self.notebook.note_list
         for note in notes:
-            print(note.last_id, note.tags, note.memo,
-                  '\n-----------------------')
+            print(note.last_id, note.tags, note.memo, '\n' + '-' * 30)
 
     def search_notes(self):
+        """
+        Searches note by inserted value.
+        """
         filter = input('Search for: ')
         notes = self.notebook.search(filter)
         self.show_notes(notes)
 
     def add_note(self):
+        """
+        Creates a Note object in Notebook
+        """
         memo = input("Enter a memo: ")
         self.notebook.add_note(memo)
         print('Your note has benn added.')
 
     def modify_note(self):
+        """
+        Modifies existing Note object with inserted values.
+        """
         id = input('Enter a note id: ')
         memo = input('Enter a memo: ')
         tags = input('Eneter a tags: ')
@@ -69,11 +90,17 @@ class Menu:
             self.notebook.modify_tags(id, tags)
 
     def remove_note(self):
+        """
+        Removes the Note object from Notebook, by inserted id.
+        """
         id = input('Enter a note id: ')
         self.notebook.remove_note(id)
         print('Your note has been deleted.')
 
     def restore(self):
+        """
+        Restores a localy saved notes (if they exist).
+        """
         if not os.path.isdir('notes'):
             print('No backups found.')
         else:
@@ -84,6 +111,9 @@ class Menu:
                     self.notebook.recover_note(note)
 
     def backup(self):
+        """
+        Backups all notes locally.
+        """
         if not os.path.isdir('notes'):
             os.makedirs('notes')
         notes = self.notebook.note_list
@@ -93,6 +123,9 @@ class Menu:
                 json.dump(vars(each), file)
 
     def quit(self):
+        """
+        Stops the program.
+        """
         print('Thanks for using notebook')
         sys.exit(0)
 
